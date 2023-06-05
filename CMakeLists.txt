@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.25)
 project(raia_mruby C)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
-link_directories(${PROJECT_SOURCE_DIR}/lib/macos)
+link_directories(${PROJECT_SOURCE_DIR}/lib/
+        $<$<PLATFORM_ID:Darwin>: ${PROJECT_SOURCE_DIR}/lib/macos>
+        $<$<PLATFORM_ID:Linux>: ${PROJECT_SOURCE_DIR}/lib/linux>
+        $<$<PLATFORM_ID:Windows>: ${PROJECT_SOURCE_DIR}/lib/windows>
+        )
 
 set(CMAKE_C_STANDARD 11)
 
