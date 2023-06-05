@@ -10,6 +10,10 @@ add_library(raia_mruby SHARED
         src/raia_mruby.c
         )
 
-target_link_libraries(raia_mruby "-lmruby")
+target_link_libraries(raia_mruby
+        $<$<PLATFORM_ID:Darwin>: "-lmruby">
+        $<$<PLATFORM_ID:Linux>: "-lmruby">
+        $<$<PLATFORM_ID:Windows>: "-lmruby" "-lwsock32" "-lws2_32">
+        )
 
 set_target_properties(raia_mruby PROPERTIES PREFIX "")
